@@ -22,7 +22,7 @@ The Little Lemon API is a Django REST framework-based project providing robust e
 
 1- Clone the repository:
 ``` bash
-    git clone <https://github.com/yousefmamdohfawzy/littlelemon_api.git>
+    git clone <https://github.com/yousefmamdohfawzy/littlelemonapi.git>
     cd LittleLemon
 ```
 
