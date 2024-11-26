@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Little Lemon API is a Django REST framework-based project providing robust endpoints for managing a restaurant's operations. The API supports user management, menu item management, cart operations, and order processing with role-based permissions (Customer, Delivery Crew, Manager, and Admin).
+
+The Little Lemon API is a Django REST Framework-based backend system designed to streamline restaurant operations. It provides endpoints for managing user roles, menu items, orders, and carts. This API ensures secure role-based access for Customers, Delivery Crew, Managers, and Admins, supporting essential features such as authentication, filtering, sorting, and throttling.
+
 
 -------------------------------------------------
 
@@ -142,3 +144,59 @@ Order Management
 -------------------------
 ### Admin Features
 - View and manage menu items, categories, users, orders, and carts via the admin panel.
+
+--------------------------------
+
+### Pre-Configured Users
+
+The following users are pre-configured for testing purposes:
+
+| Username   | Email             | Role            | Password |
+|------------|-------------------|-----------------|----------|
+| manager    | manager@mail.com  | Manager         | 123      |
+| manager2   | manager2@mail.com | Manager         | 123      |
+| delivery   | delivery@mail.com | Delivery Crew   | 123      |
+| delivery2  | d@d.com           | Delivery Crew   | 123      |
+| customer   | c@c.co            | Customer        | 123      |
+
+**Note**:
+- Password validation rules were bypassed for testing purposes.
+- Update these credentials and implement stricter password policies for production environments.
+
+-------------------------
+### Superuser Creation
+
+The following superusers were created using Django's `createsuperuser` command:
+
+| Username   | Email             | Password |
+|------------|-------------------|----------|
+| manager    | manager@mail.com  | 123      |
+| manager2   | manager2@mail.com | 123      |
+
+**Command Used:**
+```bash
+python manage.py createsuperuser
+```
+---------------------------------
+
+### Installed Dependencies
+
+The project uses the following dependencies:
+
+| Dependency                               | Version  |
+|------------------------------------------|----------|
+| Django                                   | 5.1.2    |
+| djangorestframework                      | 3.15.2   |
+| djangorestframework-simplejwt            | 5.3.1    |
+| djoser                                   | 2.2.3    |
+| social-auth-app-django                   | 5.4.2    |
+| cryptography                             | 43.0.3   |
+| python3-openid                           | 3.2.0    |
+
+**Install Dependencies**:
+Run the following command to install the dependencies from `requirements.txt`:
+```bash
+pip install -r requirements.txt
+```
+
+
