@@ -1,0 +1,153 @@
+Username	Email	            Password
+manager	    manager@mail.com	    123
+manager2	manager2@mail.com	    123
+delivery	delivery@mail.com	    123
+delivery2	d@d.com	                123
+delivery3	d@d.com	                123
+delivery4	d@d.co	                123
+customer	c@c.co	                123
+customer2	c@c.com	                123
+customer3	c@c.com	                123
+customer4	c@c.com	                123
+
+
+
+PS C:\yousef Fawzy\Apis\APIS M4\LittleLemon\LittleLemon> python manage.py createsuperuser
+Username (leave blank to use 'dell'): manager 
+Email address: manager@mail.com
+Password:
+Password (again):
+This password is too short. It must contain at least 8 characters.
+This password is too common.
+This password is entirely numeric.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+PS C:\yousef Fawzy\Apis\APIS M4\LittleLemon\LittleLemon> python manage.py createsuperuser
+Username (leave blank to use 'dell'): manager2
+Email address: manager2
+Error: Enter a valid email address.
+Email address: manager2@mail.com
+Password:
+Password (again):
+This password is too short. It must contain at least 8 characters.
+This password is too common.
+This password is entirely numeric.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+PS C:\yousef Fawzy\Apis\APIS M4\LittleLemon\LittleLemon> python manage.py createsuperuser
+Username (leave blank to use 'dell'): delivery
+Email address: delivery@mail.com 
+Password:
+Password (again):
+This password is too short. It must contain at least 8 characters.
+This password is too common.
+This password is entirely numeric.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+PS C:\yousef Fawzy\Apis\APIS M4\LittleLemon\LittleLemon> python manage.py createsuperuser
+Username (leave blank to use 'dell'): delivery2
+Email address: d@d.com
+Password:
+Password (again):
+Error: Your passwords didn't match.
+Password:
+Password (again):
+This password is too short. It must contain at least 8 characters.
+This password is too common.
+This password is entirely numeric.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+PS C:\yousef Fawzy\Apis\APIS M4\LittleLemon\LittleLemon> python manage.py createsuperuser
+Username (leave blank to use 'dell'): delivery3
+Email address: d@d.com
+Password:
+Password (again):
+This password is too short. It must contain at least 8 characters.
+This password is too common.
+This password is entirely numeric.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+PS C:\yousef Fawzy\Apis\APIS M4\LittleLemon\LittleLemon> python manage.py createsuperuser
+Username (leave blank to use 'dell'): delivery4
+Email address: d@d.c
+Error: Enter a valid email address.
+Email address: d@d.co
+Password:
+Password (again):
+This password is too short. It must contain at least 8 characters.
+This password is too common.
+This password is entirely numeric.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+PS C:\yousef Fawzy\Apis\APIS M4\LittleLemon\LittleLemon> python manage.py createsuperuser
+Username (leave blank to use 'dell'): customer 
+Email address: c@c.co
+Password:
+Password (again):
+This password is too short. It must contain at least 8 characters.
+This password is too common.
+This password is entirely numeric.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+PS C:\yousef Fawzy\Apis\APIS M4\LittleLemon\LittleLemon> python manage.py createsuperuser
+Username (leave blank to use 'dell'): customer2
+Email address: c@c.com
+Password:
+Password (again):
+This password is too short. It must contain at least 8 characters.
+This password is too common.
+This password is entirely numeric.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+PS C:\yousef Fawzy\Apis\APIS M4\LittleLemon\LittleLemon> python manage.py createsuperuser
+Username (leave blank to use 'dell'): customer3
+Email address: c@c.com
+Password:
+Password (again):
+Error: Your passwords didn't match.
+Password:
+Password (again):
+This password is too short. It must contain at least 8 characters.
+This password is too common.
+This password is entirely numeric.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+PS C:\yousef Fawzy\Apis\APIS M4\LittleLemon\LittleLemon> python manage.py createsuperuser
+Username (leave blank to use 'dell'): customer4
+Email address: c@c.com
+Password:
+Password (again):
+This password is too short. It must contain at least 8 characters.
+This password is too common.
+This password is entirely numeric.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+
+
+
+
+
+
+asgiref==3.8.1
+certifi==2024.8.30       
+cffi==1.17.1
+charset-normalizer==3.4.0
+cryptography==43.0.3     
+defusedxml==0.8.0rc2
+Django==5.1.2
+django-templated-mail==1.1.1
+djangorestframework==3.15.2
+djangorestframework-simplejwt==5.3.1
+djoser==2.2.3
+idna==3.10
+oauthlib==3.2.2
+pycparser==2.22
+PyJWT==2.9.0
+python3-openid==3.2.0
+requests==2.32.3
+requests-oauthlib==2.0.0
+social-auth-app-django==5.4.2
+social-auth-core==4.5.4
+sqlparse==0.5.1
+tzdata==2024.2
+urllib3==2.2.3

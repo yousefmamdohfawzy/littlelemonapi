@@ -1,0 +1,70 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.sqlite3
+db.sqlite3
+*.log
+
+# Ignore media and static files (generated dynamically or user-uploaded)
+media/
+static/
+
+# Environment variables
+.env
+
+# Virtual environment
+venv/
+env/
+.virtualenvs/
+
+# VSCode configuration
+.vscode/
+
+# PyCharm configuration
+.idea/
+
+# Pipenv files
+Pipfile.lock
+*.lock
+
+# Celery task queue logs
+celerybeat-schedule
+*.pid
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+*.cover
+coverage.xml
+*.py,cover
+
+# MyPy type checker reports
+.mypy_cache/
+
+# Django migrations
+**/migrations/*
+
+# Node.js related files
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Compiled files
+*.so
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Files from macOS
+.DS_Store
+
+# Files from Windows
+Thumbs.db
