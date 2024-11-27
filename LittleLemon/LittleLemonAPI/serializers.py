@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from .models import MenuItem , Cart,Order, OrderItem
+from .models import MenuItem , Cart,Order, OrderItem ,Category
 from rest_framework.response        import Response
 from django.contrib.auth.models     import Group, User
+
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -9,7 +10,22 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id','username','email']                
                   
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields =["slug", "title"]
+        
+
+
+
 class MenuItemSerializer(serializers.ModelSerializer):
+    category = serializers.SlugRelatedField(
+        queryset=Category.objects.all(),
+        slug_field='slug'
+    )
+
     class Meta:
         model = MenuItem
         fields = ['id','title','price','category','featured']

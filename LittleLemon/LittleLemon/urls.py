@@ -8,6 +8,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('djoser.urls')),
     path('api/', include('LittleLemonAPI.urls')),  
-    path('', include('djoser.urls.authtoken')), 
+    path('auth/', include('djoser.urls.authtoken')), 
 ]
 

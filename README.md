@@ -60,6 +60,7 @@ Authentication and User Management
 | `/api/users/<id>/groups/ `        | DELETE | Admin | Remove a user from a group      |
 | `/api/groups/manager/users/`       | GET    | Admin | List all managers               |
 | `/api/groups/delivery-crew/users/` | GET    | Admin | List all delivery crew members  |
+| `/auth/token/login/  ` | POST | Admin | Generate Token by usernaem and password | 
 
 ----------------------------------------------------------
 
@@ -168,10 +169,10 @@ The following users are pre-configured for testing purposes:
 
 The following superusers were created using Django's `createsuperuser` command:
 
-| Username   | Email             | Password |
-|------------|-------------------|----------|
-| manager    | manager@mail.com  | 123      |
-| manager2   | manager2@mail.com | 123      |
+| Username   | Email             | Password |                Token                    |
+|------------|-------------------|----------| ----- |
+| manager    | manager@mail.com  | 123      |f9e4e35ec3ccec3d866b1bccc9dd1c3c8661c2a1 |
+| manager2   | manager2@mail.com | 123      |eb5c7009277d6be01b64da2b0fd60d895629cdf7 |
 
 **Command Used:**
 ```bash

@@ -5,14 +5,27 @@ from django.contrib.auth.models     import Group, User
 from rest_framework                 import status
 from rest_framework.views           import APIView
 from rest_framework.generics        import ListAPIView,RetrieveUpdateAPIView
-from .models                        import MenuItem , Cart
+from .models                        import MenuItem , Cart ,Category
 from .models                        import Order, OrderItem
 from .serializers                   import MenuItemSerializer , singleMenuItemSerializer , UserSerializer
-from .serializers                   import CartSerializer , OrderSerializer , OrderItemSerializer
+from .serializers                   import CartSerializer , OrderSerializer , OrderItemSerializer,CategorySerializer
 from rest_framework                 import filters
 from django_filters.rest_framework  import DjangoFilterBackend
 from django.shortcuts               import get_object_or_404
 import traceback
+
+
+@api_view(['GET','POST','DELETE'])
+@permission_classes([AllowAny])
+def categories(request):
+    if request.method == 'GET':
+        category_list = Category.objects.all()
+        serializer = CategorySerializer(category_list, many=True)
+        return Response(serializer.data)
+    """elif request.method == 'POST':
+        
+    elif request.method == 'DELETE':"""
+
 
 
 # add or remove user to specific group

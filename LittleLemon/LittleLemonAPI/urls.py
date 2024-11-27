@@ -14,8 +14,10 @@ urlpatterns = [
     path('users/<int:id>/cart/', views.flush_cart, name='flush-cart'),
     path('orders/',views.orders,name='orders'),
     path('orders/<int:order_id>/', views.manage_order.as_view(),name='manage_order'),
-
-        
+    path('categories/', views.categories, name="categories"),
+    
+            
 ]
+
 
 
