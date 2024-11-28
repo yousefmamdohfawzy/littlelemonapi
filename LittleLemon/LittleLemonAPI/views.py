@@ -22,11 +22,43 @@ def categories(request):
         category_list = Category.objects.all()
         serializer = CategorySerializer(category_list, many=True)
         return Response(serializer.data)
-    """elif request.method == 'POST':
-        
-    elif request.method == 'DELETE':"""
-
-
+    elif request.method == 'POST':
+        if request.user.groups.filter(name = "manager").exists():
+            serializer = CategorySerializer(data = request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"message":"only manager can add category"},status=status.HTTP_401_UNAUTHORIZED)
+    
+    
+     # Handle DELETE request - Remove a category by its slug
+    elif request.method == 'DELETE':
+        if request.user.groups.filter(name="manager").exists():
+            slug = request.data.get('slug')
+            if not slug:
+                return Response(
+                    {"error": "Please provide a category slug."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            try:
+                category = Category.objects.get(slug=slug)
+                category.delete()
+                return Response(
+                    {"message": f"Category '{slug}' deleted successfully."},
+                    status=status.HTTP_200_OK
+                )
+            except Category.DoesNotExist:
+                return Response(
+                    {"error": "Category not found."},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+        else:
+            return Response(
+                {"message": "Only managers can delete categories."},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
 
 # add or remove user to specific group
 @api_view(['POST','DELETE'])
