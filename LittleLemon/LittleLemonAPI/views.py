@@ -22,15 +22,22 @@ def categories(request):
         category_list = Category.objects.all()
         serializer = CategorySerializer(category_list, many=True)
         return Response(serializer.data)
+    
     elif request.method == 'POST':
         if request.user.groups.filter(name = "manager").exists():
             serializer = CategorySerializer(data = request.data)
             if serializer.is_valid():
                 serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                return Response(serializer.data,
+                                status=status.HTTP_201_CREATED
+                                )
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST
+                            )
         else:
-            return Response({"message":"only manager can add category"},status=status.HTTP_401_UNAUTHORIZED)
+            return Response({"message":"only manager can add category"},
+                            status=status.HTTP_401_UNAUTHORIZED
+                            )
     
     
      # Handle DELETE request - Remove a category by its slug
@@ -196,22 +203,18 @@ class singlemenuItemlistview(RetrieveUpdateAPIView):
 
 # use to add item to cart by user.id and item.id
 @api_view(['POST'])
-@permission_classes([AllowAny])#  to allow anyone 
-def add_item_to_cart(request,id,menu_id):
-    
-    try:                # Fetch user by his ID
-        user_id=User.objects.get(id=id)
-    except User.DoesNotExist:
-        return Response({"error": "User Id not found"}, status=status.HTTP_404_NOT_FOUND)
+@permission_classes([IsAuthenticated])#  to allow anyone 
+def add_item_to_cart(request,menu_id):
     
     try:                # Fetch the menu item by its ID
         menu_item=MenuItem.objects.get(id=menu_id)
     except MenuItem.DoesNotExist:
         return Response({"error": "Menu item not found"}, status=status.HTTP_404_NOT_FOUND)
     
+    user = request.user
     
         # Check if the item already exists in the cart for this user
-    cart_item, created=Cart.objects.get_or_create(user_id=id,menuitem=menu_item)
+    cart_item, created=Cart.objects.get_or_create(user=user,menuitem=menu_item)
 
     # If the item already exists in the cart, update the quantity
     if not created:
@@ -226,26 +229,27 @@ def add_item_to_cart(request,id,menu_id):
     
 
 
-# use to view items in the cart by user.id 
-@api_view(['GET']) 
-@permission_classes([AllowAny])
-def view_cart(request,id):
-    cart_items=Cart.objects.filter(user_id=id)
+# use to view items in the cart by user token 
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def view_cart(request):
+    user = request.user
+    cart_items = Cart.objects.filter(user=user.id)
     if not cart_items.exists():
         return Response({"message": "Your cart is empty."}, status=status.HTTP_200_OK)
     else:
-        
-        return Response(CartSerializer(cart_items,many=True).data, status=status.HTTP_200_OK)
-    
+        return Response(CartSerializer(cart_items, many=True).data, status=status.HTTP_200_OK)
+
 
 
 # use to delte item from cart by user.id and item.id
 @api_view(['DELETE'])
-@permission_classes([AllowAny])
-def flush_cart (request,id):
-    cart_items=Cart.objects.filter(user_id=id)
+@permission_classes([IsAuthenticated])
+def flush_cart (request):
+    cart_items=Cart.objects.filter(user=request.user)
     cart_items.delete()
-    return Response({"message": "Your cart is empty."}, status=status.HTTP_200_OK)
+    return Response({"message": "succesfilly, Now Your cart is empty."}, status=status.HTTP_200_OK)
     
 
 #---------------------------------------------------------

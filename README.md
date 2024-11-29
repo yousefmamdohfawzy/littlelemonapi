@@ -6,6 +6,8 @@
 The Little Lemon API is a Django REST Framework-based backend system designed to streamline restaurant operations. It provides endpoints for managing user roles, menu items, orders, and carts. This API ensures secure role-based access for Customers, Delivery Crew, Managers, and Admins, supporting essential features such as authentication, filtering, sorting, and throttling.
 
 
+
+
 -------------------------------------------------
 
 ## Installation and Setup
@@ -51,11 +53,13 @@ The Little Lemon API is a Django REST Framework-based backend system designed to
 ------------------------------------------
 **API Endpoints**
 
-Authentication and User Management
+### **Authentication and User Management**
 
 
 | Endpoint                         | Method | Role  | Description                     |
 |----------------------------------|--------|-------|---------------------------------|
+| `/api/users`          | POST   | Public  | Register a new user.                 |
+| `/api/users/me`       | GET    | Any Authenticated User | Get details of the current user. |
 | `/api/users/<id>/groups/`          | POST   | Admin | Assign a user to a group        |
 | `/api/users/<id>/groups/ `        | DELETE | Admin | Remove a user from a group      |
 | `/api/groups/manager/users/`       | GET    | Admin | List all managers               |
@@ -63,8 +67,16 @@ Authentication and User Management
 | `/auth/token/login/  ` | POST | Admin | Generate Token by usernaem and password | 
 
 ----------------------------------------------------------
+### **Category Endpoints**
+| Endpoint              | Method | Role    | Description                  |
+|-----------------------|--------|---------|------------------------------|
+| `/api/categories`     | GET    | Public  | List all categories.         |
+| `api/categories/`     |  POST  | Admin   | Add a new category           |
+| `api/categories/`     | DELETE | Admin   | Remove a category            |
 
-Menu Management
+-----------
+
+### **Menu Management**
 
 | Endpoint                | Method        | Role     | Description                  |
 |-------------------------|---------------|----------|------------------------------|
@@ -79,23 +91,23 @@ GET /api/menu-items/?category=Beverages&ordering=-price
 ```
  ----------------------------------------------------------
 
-Cart Operations
+### **Cart Operations**
 
-| Endpoint                                   | Method | Role      | Description                  |
+| Endpoint                                  | Method |  Role     |   Description                |
 |-------------------------------------------|--------|-----------|------------------------------|
-| `/api/users/<id>/cart/menu-item/<menu_id>/`   | POST   | Customer  | Add a menu item to the cart. |
-| `/api/users/<id>/cart/menu-item/`             | GET    | Customer  | View all items in the cart.  |
-| `/api/users/<id>/cart/`                       | DELETE | Customer  | Clear all items in the cart. |
+| `/api/users/carts/menu-item/<menu_id>/`   | POST   | Customer  | Add a menu item to the cart. |
+| `/api/users/carts/me/`                    | GET    | Customer  | View all items in the cart.  |
+| `/api/users/carts/me/`                    | DELETE | Customer  | Clear all items in the cart. |
 
 
 ----------------------------------------------------------
 
-Order Management
+### **Order Management**
 
-| Endpoint         | Method         | Role                 | Description                  |
-|------------------|---------------|----------------------|------------------------------|
-| `/api/orders/`   | GET, POST      | Customer             | Place an order or view orders. |
-| `/api/orders/<id>/` | GET, PUT, DELETE | Customer, Manager, Delivery Crew | Manage a specific order.       |
+| Endpoint              | Method            | Role                          | Description                  |
+|------------------     |---------------    |----------------------         |------------------------------|
+| `/api/orders/`        | GET, POST         | Customer                      |Place an order or view orders |
+| `/api/orders/<id>/`   | GET, PUT, DELETE  |Customer,manager,delivery-crew | Manage a specific order.    |
 
 #### Order Status
 - 0: Delivery in Progress
@@ -107,17 +119,46 @@ Order Management
 - Delivery Crew: View assigned orders, update status.
 
 --------------------------
+## **Models Overview**
 
-### Models Overview
-- Category: Represents menu categories.
-- MenuItem: Represents individual menu items.
-- Cart: Tracks menu items added by a customer.
-- Order: Represents an order placed by a customer.
-- OrderItem: Items included in an order.
+### **Category**
+- **Fields:**
+  - `slug`: Unique identifier for the category.
+  - `title`: Unique, descriptive title.
+  
+### **MenuItem**
+- **Fields:**
+  - `title`: Name of the menu item.
+  - `price`: Cost of the item.
+  - `featured`: Boolean to highlight items.
+  - `category`: ForeignKey to Category.
 
--------------------------------
+### **Cart**
+- **Fields:**
+  - `user`: Associated user.
+  - `menuitem`: Associated menu item.
+  - `quantity`: Quantity added.
+  - `unit_price`: Price per unit.
+  - `price`: Total price.
 
- **Permissions**
+### **Order**
+- **Fields:**
+  - `user`: Customer placing the order.
+  - `delivery_crew`: Assigned delivery crew.
+  - `status`: Boolean for delivery status.
+  - `items`: Related `OrderItem` objects.
+
+### **OrderItem**
+- **Fields:**
+  - `order`: Associated order.
+  - `menuitem`: Menu item in the order.
+  - `quantity`: Number of units.
+  - `unit_price`: Price per unit.
+  - `price`: Total price.
+
+
+--------------
+### **Permissions**
 
 | Role            | Access Description                                      |
 |------------------|--------------------------------------------------------|
@@ -152,29 +193,20 @@ Order Management
 
 The following users are pre-configured for testing purposes:
 
-| Username   | Email             | Role            | Password |
-|------------|-------------------|-----------------|----------|
-| manager    | manager@mail.com  | Manager         | 123      |
-| manager2   | manager2@mail.com | Manager         | 123      |
-| delivery   | delivery@mail.com | Delivery Crew   | 123      |
-| delivery2  | d@d.com           | Delivery Crew   | 123      |
-| customer   | c@c.co            | Customer        | 123      |
+| Username   | Email             | Role          | Password |  User     |                Token                    |
+|------------|-------------------|---------------|----------|-----------|-------------------------------------|
+| manager    | manager@mail.com  | Manager       | 123      | superuser |f9e4e35ec3ccec3d866b1bccc9dd1c3c8661c2a1 |
+| manager2   | manager2@mail.com | Manager       | 123      | superuser |eb5c7009277d6be01b64da2b0fd60d895629cdf7 |
+| delivery   | delivery@mail.com | Delivery Crew | 123      | staffuser |
+| delivery2  | d@d.com           | Delivery Crew | 123      | staffuser |
+| customer   | c@c.co            | Customer      | 123      |   user    |
 
 **Note**:
 - Password validation rules were bypassed for testing purposes.
-- Update these credentials and implement stricter password policies for production environments.
+- Update these credentials and implement stricter password policies for production environments.<br><br>
 
--------------------------
-### Superuser Creation
 
-The following superusers were created using Django's `createsuperuser` command:
-
-| Username   | Email             | Password |                Token                    |
-|------------|-------------------|----------| ----- |
-| manager    | manager@mail.com  | 123      |f9e4e35ec3ccec3d866b1bccc9dd1c3c8661c2a1 |
-| manager2   | manager2@mail.com | 123      |eb5c7009277d6be01b64da2b0fd60d895629cdf7 |
-
-**Command Used:**
+**Command for Superuser Creation:**
 ```bash
 python manage.py createsuperuser
 ```
@@ -201,3 +233,7 @@ pip install -r requirements.txt
 ```
 
 
+Contributors
+Yousef Fawzy: Backend Developer
+For further queries, contact: youseffawzy249@gmail.com
+linkedin : https://www.linkedin.com/in/yousefmamdohfawzy/
