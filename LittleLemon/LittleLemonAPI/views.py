@@ -203,7 +203,7 @@ class singlemenuItemlistview(RetrieveUpdateAPIView):
 
 # use to add item to cart by user.id and item.id
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])#  to allow anyone 
+@permission_classes([IsAuthenticated])
 def add_item_to_cart(request,menu_id):
     
     try:                # Fetch the menu item by its ID
